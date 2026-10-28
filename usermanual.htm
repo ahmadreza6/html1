@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستند وب‌سرویس‌های گردش حساب بانکی</title>
+    <style>
+        @page { margin: 2.54cm; size: A4; }
+        body {
+            font-family: 'B Nazanin', 'B Mitra', 'IRANSans', 'Tahoma', sans-serif;
+            font-size: 12pt; line-height: 1.8; color: #1a1a1a;
+            background: #f8fafc; max-width: 1000px; margin: 0 auto; padding: 30px 40px;
+        }
+        * { direction: rtl; text-align: right; }
+        h1, h2, h3, h4, h5, h6 { font-weight: bold; margin-top: 1.8em; margin-bottom: 0.5em; }
+        h1 { font-size: 26pt; text-align: center; margin-bottom: 0.2em; color: #0b1a2b; letter-spacing: 1px; }
+        h2 { font-size: 19pt; border-bottom: 3px solid #1a3a5c; padding-bottom: 0.25em; margin-top: 2em; color: #0b1a2b; }
+        h3 { font-size: 16pt; color: #1a3a5c; margin-top: 1.6em; }
+        h4 { font-size: 14pt; color: #2c3e50; margin-top: 1.2em; }
+        h5 { font-size: 13pt; color: #2c3e50; margin-top: 1.1em; }
+
+        .doc-metadata-table {
+            width: 100%; border-collapse: collapse; margin: 1.8em 0 2.2em 0;
+            font-size: 13pt; border: 2px solid #1a3a5c;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.06); border-radius: 8px; overflow: hidden;
+        }
+        .doc-metadata-table th {
+            background-color: #1a3a5c; color: white; font-weight: 800;
+            padding: 16px 20px; font-size: 14pt; letter-spacing: 0.5px; border: 1px solid #1a3a5c;
+        }
+        .doc-metadata-table td {
+            padding: 14px 20px; background-color: #ffffff; border: 1px solid #d0d8e0;
+            font-weight: 600; font-size: 13pt;
+        }
+        .doc-metadata-table tr:nth-child(even) td { background-color: #f2f6fc; }
+        .doc-metadata-table .label-cell { font-weight: 700; color: #0b1a2b; background-color: #e8edf4; width: 28%; }
+
+        table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 11.5pt; border: 1px solid #c8d0d8; }
+        table, th, td { border: 1px solid #c8d0d8; }
+        th { background-color: #1a3a5c; color: white; font-weight: 700; padding: 12px 14px; }
+        td { padding: 10px 14px; background-color: #ffffff; }
+        tr:nth-child(even) td { background-color: #f5f8fc; }
+
+        pre, code {
+            direction: ltr; text-align: left; font-family: 'Courier New', 'Consolas', monospace;
+            font-size: 10.5pt; background-color: #f0f4f9; border: 1px solid #d0d8e0;
+            border-radius: 6px; padding: 14px 18px; margin: 1.2em 0;
+            display: block; white-space: pre-wrap; word-break: break-word; unicode-bidi: embed;
+        }
+        code {
+            display: inline; padding: 2px 8px; background-color: #e8edf4;
+            border: none; font-size: 10pt; border-radius: 4px;
+        }
+        pre code { display: block; padding: 0; background: none; border: none; }
+        .http-request {
+            background-color: #f0f4f9; border-right: 5px solid #1a6b9f; padding: 10px 16px;
+            margin: 1em 0; font-family: 'Courier New', monospace; direction: ltr;
+            text-align: left; border-radius: 4px;
+        }
+
+        .note-box {
+            background-color: #fff9e6; border-right: 5px solid #d4a017; padding: 14px 20px;
+            margin: 1.8em 0; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+        .tip-box {
+            background-color: #e7f4ed; border-right: 5px solid #1f7b4a; padding: 14px 20px;
+            margin: 1.8em 0; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+
+        ul, ol { padding-right: 28px; margin: 0.8em 0; }
+        li { margin-bottom: 0.4em; }
+        hr { border: none; border-top: 2px solid #dce2ea; margin: 2.2em 0; }
+
+        .page-break { page-break-after: always; border: none; }
+
+        @media print {
+            body { padding: 0.5cm; font-size: 11pt; background: white; }
+            pre, .http-request {
+                background-color: #f0f4f9 !important;
+                -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+            }
+            .doc-metadata-table th, th {
+                background-color: #1a3a5c !important; color: white !important;
+                -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+            }
+            .doc-metadata-table td, td {
+                background-color: #ffffff !important;
+                -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+            }
+            .doc-metadata-table tr:nth-child(even) td, tr:nth-child(even) td {
+                background-color: #f2f6fc !important;
+                -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+            }
+            .note-box {
+                background-color: #fff9e6 !important;
+                -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+            }
+            .tip-box {
+                background-color: #e7f4ed !important;
+                -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
+            }
+        }
+
+        .bismillah { font-size: 20pt; text-align: center; margin-bottom: 0.3em; font-weight: bold; color: #1a3a5c; }
+        .doc-title { text-align: center; font-size: 28pt; font-weight: 800; margin: 0.2em 0 0.1em 0; color: #0b1a2b; letter-spacing: 1px; }
+        .doc-subtitle { text-align: center; font-size: 15pt; color: #2c3e50; margin-bottom: 1.2em; font-weight: 400; }
+        .field-name { font-family: 'Courier New', monospace; direction: ltr; display: inline-block; unicode-bidi: embed; }
+        .ltr-text { direction: ltr; text-align: left; unicode-bidi: embed; }
+        .ltr-code { direction: ltr; text-align: left; unicode-bidi: embed; }
+
+        .doc-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 3px solid #1a3a5c; padding-bottom: 12px; margin-bottom: 10px;
+        }
+        .doc-header .org-name { font-size: 14pt; font-weight: 700; color: #1a3a5c; letter-spacing: 0.5px; }
+        .doc-header .doc-badge {
+            background: #1a3a5c; color: white; padding: 4px 16px;
+            border-radius: 20px; font-size: 11pt; font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="doc-header">
+        <span class="org-name"></span>
+        <span class="doc-badge">مستند فنی وب‌سرویس</span>
+    </div>
+
+    <div class="bismillah">بسم الله الرحمن الرحیم</div>
+
+    <h1>مستند وب‌سرویس‌های گردش حساب بانک</h1>
+    <div class="doc-subtitle">پروژه گردش حساب‌های بانکی — سرویس GetMelatStatements — نسخه ۱.۰</div>
+
+    <h2>مشخصات سند</h2>
+
+    <table class="doc-metadata-table">
+        <tr><th>عنوان</th><th>مقدار</th></tr>
+        <tr><td class="label-cell">نام پروژه</td><td>پروژه گردش حساب‌های بانکی</td></tr>
+        <tr><td class="label-cell">نام سرویس</td><td><code>GetMelatStatements</code></td></tr>
+        <tr><td class="label-cell">نویسنده</td><td>تیم فنی نوین سلز</td></tr>
+        <tr><td class="label-cell">تاریخ انتشار</td><td>پائیز ۱۴۰۵</td></tr>
+        <tr><td class="label-cell">نسخه مستند</td><td>۱.۰</td></tr>
+        <tr><td class="label-cell">وضعیت</td><td><span style="color: #1f7b4a; font-weight: 700;">✔ نهایی</span></td></tr>
+    </table>
+
+    <hr>
+
+    <h2>۱. معرفی سرویس</h2>
+
+    <h3>هدف سرویس</h3>
+    <p>
+        سرویس <strong>GetMelatStatements</strong> از <strong>پروژه گردش حساب‌های بانکی</strong> با هدف دریافت
+        <strong>گردش حساب بانکی</strong> مشتری از سامانهٔ بانک ملت توسعه یافته است. این سرویس با دریافت شماره حساب و تاریخ موردنظر،
+        لیست تراکنش‌های بانکی مرتبط را به‌صورت یکپارچه در اختیار مصرف‌کنندگان سرویس قرار می‌دهد.
+    </p>
+
+    <p>از مهم‌ترین اطلاعات قابل دریافت توسط این سرویس می‌توان به موارد زیر اشاره نمود:</p>
+
+    <ul>
+        <li>شناسه گردش حساب بانک</li>
+        <li>شماره حساب بانکی مرتبط</li>
+        <li>مبلغ تراکنش</li>
+        <li>زمان و تاریخ تراکنش (میلادی و شمسی)</li>
+        <li>شناسه پرداخت و کد رهگیری بانک</li>
+        <li>کد شعبه و سریال بانکی</li>
+        <li>توضیحات بانک و نوع تراکنش (واریز / برداشت)</li>
+        <li>نام پرداخت‌کننده و سایر اطلاعات مرتبط</li>
+    </ul>
+
+    <hr>
+
+    <h2>۲. احراز هویت (Authentication)</h2>
+
+    <p>
+        این وب‌سرویس نیز همانند سایر وب‌سرویس‌های پروژه گردش حساب‌های بانکی از <strong>JWT</strong> (JSON Web Token) جهت احراز هویت استفاده می‌کند.
+        کلیهٔ درخواست‌ها باید هدر زیر را ارسال نمایند:
+    </p>
+
+<pre><code>Authorization: Bearer {JWT Token}</code></pre>
+
+    <p>در صورت معتبر نبودن Token، سرویس پاسخ مناسب با خطای احراز هویت را باز خواهد گرداند.</p>
+
+    <hr>
+
+    <h2>۳. آدرس پایه سرویس (Base URL)</h2>
+
+<pre><code>https://{Domain}/api/CDP</code></pre>
+
+    <p>مقدار <code>Domain</code> در محیط‌های Development، Test و Production متفاوت خواهد بود.</p>
+
+    <hr>
+
+    <h2>۴. ساختار استاندارد پاسخ سرویس‌ها</h2>
+
+    <p>
+        این وب‌سرویس خروجی خود را بر اساس کلاس استاندارد <code>Result&lt;T&gt;</code> باز می‌گرداند.
+        ساختار کلی پاسخ به‌صورت زیر است:
+    </p>
+
+    <h3>پاسخ موفق</h3>
+
+<pre><code>{
+    "isSuccess": true,
+    "data": {
+        "transactions": [ ... ]
+    },
+    "metadata": null,
+    "error": null
+}</code></pre>
+
+    <h4>فیلدهای پاسخ:</h4>
+
+    <table>
+        <tr><th>فیلد</th><th>توضیح</th></tr>
+        <tr><td><code>isSuccess</code></td><td>مشخص‌کنندهٔ موفق یا ناموفق بودن درخواست</td></tr>
+        <tr><td><code>data</code></td><td>اطلاعات بازگشتی سرویس (شامل لیست تراکنش‌ها)</td></tr>
+        <tr><td><code>metadata</code></td><td>اطلاعات تکمیلی مانند نسخهٔ API، صفحه‌بندی و ... (در صورت وجود)</td></tr>
+        <tr><td><code>error</code></td><td>در پاسخ موفق مقدار آن همیشه <code>null</code> است</td></tr>
+    </table>
+
+    <h3>پاسخ ناموفق</h3>
+
+<pre><code>{
+    "isSuccess": false,
+    "data": null,
+    "metadata": null,
+    "error": {
+        "code": "ACCOUNT_NOT_FOUND",
+        "type": "NotFound",
+        "message": "Bank account statement not found."
+    }
+}</code></pre>
+
+    <p>در پاسخ‌های ناموفق، اطلاعات خطا در شیء <code>error</code> قرار می‌گیرد.</p>
+
+    <hr>
+
+    <h2>۵. ساختار Error</h2>
+
+    <p>ساختار خطا به‌صورت زیر است:</p>
+
+    <table>
+        <tr><th>فیلد</th><th>توضیح</th></tr>
+        <tr><td><code>code</code></td><td>کد یکتای خطا</td></tr>
+        <tr><td><code>type</code></td><td>نوع خطا</td></tr>
+        <tr><td><code>message</code></td><td>توضیح خطا</td></tr>
+    </table>
+
+    <h4>نمونه:</h4>
+
+<pre><code>{
+    "code": "VALIDATION_ERROR",
+    "type": "Validation",
+    "message": "AccountNo is required."
+}</code></pre>
+
+    <hr>
+
+    <h2>۶. وب‌سرویس‌های پروژه</h2>
+
+    <p>در این پروژه، وب‌سرویس‌های دریافت گردش حساب برای بانک‌های زیر ارائه شده است:</p>
+
+    <ul>
+        <li>بانک ملت</li>
+        <li>بانک اقتصاد نوین</li>
+        <li>بانک سامان</li>
+        <li>بانک ملی</li>
+        <li>بانک صادرات</li>
+        <li>بانک سپه</li>
+    </ul>
+
+    <h3>۶-۱. دریافت گردش حساب بانک ملت</h3>
+
+    <p><strong>نام سرویس:</strong><br><code>GetMelatStatements</code></p>
+
+    <p><strong>آدرس سرویس:</strong></p>
+
+<pre><code>GET /api/CDP/GetMelatStatements</code></pre>
+
+    <p>
+        <strong>توضیح:</strong><br>
+        این سرویس لیست تراکنش‌های گردش حساب بانکی مشتری را بر اساس شماره حساب و تاریخ موردنظر از بانک ملت دریافت و باز می‌گرداند.
+    </p>
+
+    <p><strong>پارامترهای ورودی (Query String):</strong></p>
+
+    <table>
+        <tr><th>نام پارامتر</th><th>نوع</th><th>اجباری</th><th>توضیح</th></tr>
+        <tr><td><code>accountNo</code></td><td>string</td><td>بله</td><td>شماره حساب بانکی مشتری</td></tr>
+        <tr><td><code>date</code></td><td>string (DateTime)</td><td>بله</td><td>تاریخ موردنظر جهت دریافت گردش حساب</td></tr>
+    </table>
+
+    <p><strong>نمونه درخواست:</strong></p>
+
+<pre><code>GET /api/CDP/GetMelatStatements?accountNo=1234567890&amp;date=2023-01-01</code></pre>
+
+    <p><strong>خروجی در صورت موفق بودن درخواست:</strong></p>
+
+<pre><code>{
+    "isSuccess": true,
+    "data": {
+        "transactions": [
+            {
+                "bankAccountStatementId": 1,
+                "accountNumber": "1234567890",
+                "price": 25000000,
+                "transactionTime": "2023-01-01T10:30:00",
+                "transactionDate": "2023-01-01T00:00:00",
+                "identifire": "PAY-123456",
+                "branchCode": "001",
+                "bankSerialNumber": "SER-987654",
+                "description": "واریز وجه",
+                "transactionNumber": "TXN-2023-001",
+                "traceCode": "TRC-123456789",
+                "treasuryQueueId": 100,
+                "lastStateDescription": "تأیید شده",
+                "userDescription": "ثبت توسط کاربر",
+                "bankTransactionTypeId": 1,
+                "createdOn": "2023-01-01T10:30:00",
+                "createdBy": 1,
+                "modifiedOn": null,
+                "modifiedBy": null,
+                "payerName": "علی رضایی",
+                "rowSeqPerDay": 1,
+                "operationType": "واریز"
+            }
+        ]
+    },
+    "metadata": null,
+    "error": null
+}</code></pre>
+
+    <p><strong>خروجی در صورت بروز خطا:</strong></p>
+
+<pre><code>{
+    "isSuccess": false,
+    "data": null,
+    "metadata": null,
+    "error": {
+        "code": "ACCOUNT_NOT_FOUND",
+        "type": "NotFound",
+        "message": "Bank account statement not found."
+    }
+}</code></pre>
+
+    <h4>ساختار داده‌های بازگشتی (Data)</h4>
+
+    <p>
+        مقدار <code>data</code> در پاسخ موفق از نوع <code>MelatStatementConvertSuccessResponse</code> بوده و شامل
+        لیست تراکنش‌های بانکی با ساختار زیر است:
+    </p>
+
+<pre><code>public class MelatStatementConvertSuccessResponse : IMelatStatementResponse
+{
+    public List&lt;BankAccountStatement&gt; Transactions { get; set; }
+}</code></pre>
+
+    <p>توضیح فیلدهای اصلی:</p>
+
+    <table>
+        <tr><th>فیلد</th><th>نوع</th><th>توضیح</th></tr>
+        <tr><td><code>transactions</code></td><td>لیست BankAccountStatement</td><td>لیست تراکنش‌های گردش حساب بانکی مشتری</td></tr>
+    </table>
+
+    <h4>ساختار مدل داده BankAccountStatement</h4>
+
+<pre><code>public class BankAccountStatement
+{
+    [Key]
+    [JsonProperty("BankAccountStatementId")]
+    public virtual int? BankAccountStatementId { get; set; }
+
+    [JsonProperty("BankAccountId")]
+    public virtual string? AccountNumber { get; set; }
+
+    [JsonProperty("Price")]
+    public virtual decimal? Price { get; set; }
+
+    [JsonProperty("TransactionTime")]
+    public virtual DateTime? TransactionTime { get; set; }
+
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    [JsonProperty("TransactionDate")]
+    public virtual DateTime? TransactionDate { get; set; }
+
+    [JsonProperty("Identifire")]
+    public virtual string Identifire { get; set; }
+
+    [JsonProperty("BranchCode")]
+    public virtual string BranchCode { get; set; }
+
+    [JsonProperty("BankSerialNumber")]
+    public virtual string BankSerialNumber { get; set; }
+
+    [JsonProperty("Description")]
+    public virtual string Description { get; set; }
+
+    [JsonProperty("TransactionNumber")]
+    public virtual string TransactionNumber { get; set; }
+
+    [JsonProperty("TraceCode")]
+    public virtual string TraceCode { get; set; }
+
+    [JsonProperty("TreasuryQueueId")]
+    public virtual int? TreasuryQueueId { get; set; }
+
+    [JsonProperty("LastStateDescription")]
+    public virtual string LastStateDescription { get; set; }
+
+    [JsonProperty("UserDescription")]
+    public virtual string UserDescription { get; set; }
+
+    [JsonProperty("BankTransactionTypeId")]
+    public virtual int? BankTransactionTypeId { get; set; }
+
+    [JsonProperty("CreatedOn")]
+    public virtual DateTime? CreatedOn { get; set; }
+
+    [JsonProperty("CreatedBy")]
+    public virtual int? CreatedBy { get; set; }
+
+    [JsonProperty("ModifiedOn")]
+    public virtual DateTime? ModifiedOn { get; set; }
+
+    [JsonProperty("ModifiedBy")]
+    public virtual int? ModifiedBy { get; set; }
+
+    [JsonProperty("PayerName")]
+    public virtual string PayerName { get; set; }
+
+    [JsonProperty("RowSeqPerDay")]
+    public virtual long? RowSeqPerDay { get; set; }
+
+    [JsonProperty("OperationType")]
+    public virtual string OperationType { get; set; }
+}</code></pre>
+
+    <h4>جدول فیلدهای BankAccountStatement</h4>
+
+    <table>
+        <tr>
+            <th>فیلد (انگلیسی)</th>
+            <th>عنوان فارسی</th>
+            <th>نوع</th>
+            <th>توضیح</th>
+        </tr>
+        <tr><td><code>BankAccountStatementId</code></td><td>شناسه گردش حساب بانک</td><td>int?</td><td>شناسه یکتای گردش حساب بانک</td></tr>
+        <tr><td><code>AccountNumber</code></td><td>شماره حساب بانکی</td><td>string?</td><td>شماره حساب بانکی مرتبط</td></tr>
+        <tr><td><code>Price</code></td><td>مبلغ</td><td>decimal?</td><td>مبلغ تراکنش</td></tr>
+        <tr><td><code>TransactionTime</code></td><td>زمان تراکنش</td><td>DateTime?</td><td>زمان وقوع تراکنش</td></tr>
+        <tr><td><code>TransactionDate</code></td><td>تاریخ تراکنش</td><td>DateTime?</td><td>تاریخ تراکنش (فیلد محاسبه‌شده در دیتابیس)</td></tr>
+        <tr><td><code>Identifire</code></td><td>شناسه پرداخت</td><td>string</td><td>شناسه پرداخت مرتبط با تراکنش</td></tr>
+        <tr><td><code>BranchCode</code></td><td>کد شعبه</td><td>string</td><td>کد شعبه بانک</td></tr>
+        <tr><td><code>BankSerialNumber</code></td><td>سریال بانکی</td><td>string</td><td>سریال بانکی تراکنش</td></tr>
+        <tr><td><code>Description</code></td><td>توضیحات بانک</td><td>string</td><td>توضیحات ثبت‌شده توسط بانک</td></tr>
+        <tr><td><code>TransactionNumber</code></td><td>شماره تراکنش بانک</td><td>string</td><td>شناسه / شماره تراکنش بانک</td></tr>
+        <tr><td><code>TraceCode</code></td><td>کد رهگیری بانک</td><td>string</td><td>کد رهگیری تراکنش در بانک</td></tr>
+        <tr><td><code>TreasuryQueueId</code></td><td>شناسه صف ثبت قبض خزانه</td><td>int?</td><td>شناسه صف ثبت قبض خزانه مرتبط</td></tr>
+        <tr><td><code>LastStateDescription</code></td><td>آخرین وضعیت ثبت قبض خزانه</td><td>string</td><td>آخرین وضعیت ثبت قبض خزانه مرتبط</td></tr>
+        <tr><td><code>UserDescription</code></td><td>دلیل ویرایش شناسه پرداخت</td><td>string</td><td>دلیل ویرایش شناسه پرداخت توسط کاربر</td></tr>
+        <tr><td><code>BankTransactionTypeId</code></td><td>نوع تراکنش</td><td>int?</td><td>۱ = واریز و ۲ = برداشت</td></tr>
+        <tr><td><code>CreatedOn</code></td><td>تاریخ ایجاد</td><td>DateTime?</td><td>تاریخ ایجاد رکورد</td></tr>
+        <tr><td><code>CreatedBy</code></td><td>شناسه کاربر ایجادکننده</td><td>int?</td><td>شناسه کاربر ایجادکننده رکورد</td></tr>
+        <tr><td><code>ModifiedOn</code></td><td>تاریخ آخرین ویرایش</td><td>DateTime?</td><td>تاریخ آخرین ویرایش رکورد</td></tr>
+        <tr><td><code>ModifiedBy</code></td><td>شناسه کاربر ویرایش‌کننده</td><td>int?</td><td>شناسه کاربر ویرایش‌کننده رکورد</td></tr>
+        <tr><td><code>PayerName</code></td><td>نام پرداخت‌کننده</td><td>string</td><td>نام پرداخت‌کننده تراکنش</td></tr>
+        <tr><td><code>RowSeqPerDay</code></td><td>شماره ردیف در روز</td><td>long?</td><td>شماره ردیف تراکنش در روز</td></tr>
+        <tr><td><code>OperationType</code></td><td>کد / نوع عملیات</td><td>string</td><td>کد یا نوع عملیات تراکنش</td></tr>
+    </table>
+
+    <div class="note-box">
+        <strong>نکته:</strong> در صورتی که پارامتر <code>date</code> ارسال نشود یا شماره حساب نامعتبر باشد، پاسخ با خطای
+        <code>Validation</code> بازگردانده می‌شود. همچنین در صورت عدم وجود تراکنش برای حساب و تاریخ مشخص، پاسخ موفق با لیست خالی
+        <code>transactions: []</code> بازگردانده خواهد شد.
+    </div>
+
+    <h3>۶-۲. دریافت گردش حساب بانک اقتصاد نوین</h3>
+
+    <p><strong>نام سرویس:</strong><br><code>GetENBankStatements</code></p>
+
+    <p><strong>آدرس سرویس:</strong></p>
+
+<pre><code>GET /api/CDP/GetENBankStatements</code></pre>
+
+    <p>
+        <strong>توضیح:</strong><br>
+        این سرویس لیست تراکنش‌های گردش حساب بانکی مشتری را بر اساس شماره حساب و تاریخ موردنظر از بانک اقتصاد نوین دریافت و باز می‌گرداند.
+    </p>
+
+    <p><strong>پارامترهای ورودی (Query String):</strong></p>
+
+    <table>
+        <tr><th>نام پارامتر</th><th>نوع</th><th>اجباری</th><th>توضیح</th></tr>
+        <tr><td><code>accountNo</code></td><td>string</td><td>بله</td><td>شماره حساب بانکی مشتری</td></tr>
+        <tr><td><code>date</code></td><td>string (DateTime)</td><td>بله</td><td>تاریخ موردنظر جهت دریافت گردش حساب</td></tr>
+    </table>
+
+    <p><strong>نمونه درخواست:</strong></p>
+
+<pre><code>GET /api/CDP/GetENBankStatements?accountNo=1234567890&amp;date=2023-01-01</code></pre>
+
+    <p><strong>خروجی در صورت موفق بودن درخواست:</strong></p>
+
+<pre><code>{
+    "isSuccess": true,
+    "data": {
+        "transactions": [
+            {
+                "bankAccountStatementId": 1,
+                "accountNumber": "1234567890",
+                "price": 25000000,
+                "transactionTime": "2023-01-01T10:30:00",
+                "transactionDate": "2023-01-01T00:00:00",
+                "identifire": "PAY-123456",
+                "branchCode": "001",
+                "bankSerialNumber": "SER-987654",
+                "description": "واریز وجه",
+                "transactionNumber": "TXN-2023-001",
+                "traceCode": "TRC-123456789",
+                "treasuryQueueId": 100,
+                "lastStateDescription": "تأیید شده",
+                "userDescription": "ثبت توسط کاربر",
+                "bankTransactionTypeId": 1,
+                "createdOn": "2023-01-01T10:30:00",
+                "createdBy": 1,
+                "modifiedOn": null,
+                "modifiedBy": null,
+                "payerName": "علی رضایی",
+                "rowSeqPerDay": 1,
+                "operationType": "واریز"
+            }
+        ]
+    },
+    "metadata": null,
+    "error": null
+}</code></pre>
+
+    <p><strong>خروجی در صورت بروز خطا:</strong></p>
+
+<pre><code>{
+    "isSuccess": false,
+    "data": null,
+    "metadata": null,
+    "error": {
+        "code": "ACCOUNT_NOT_FOUND",
+        "type": "NotFound",
+        "message": "Bank account statement not found."
+    }
+}</code></pre>
+
+    <p>ساختار داده‌های بازگشتی و مدل <code>BankAccountStatement</code> در این سرویس مشابه سرویس بانک ملت (بند ۶-۱) است.</p>
+
+    <h3>۶-۳. دریافت گردش حساب بانک سامان</h3>
+
+    <p><strong>نام سرویس:</strong><br><code>GetSamanStatements</code></p>
+
+    <p><strong>آدرس سرویس:</strong></p>
+
+<pre><code>GET /api/CDP/GetSamanStatements</code></pre>
+
+    <p>
+        <strong>توضیح:</strong><br>
+        این سرویس لیست تراکنش‌های گردش حساب بانکی مشتری را بر اساس شماره حساب و تاریخ موردنظر از بانک سامان دریافت و باز می‌گرداند.
+    </p>
+
+    <p><strong>پارامترهای ورودی (Query String):</strong></p>
+
+    <table>
+        <tr><th>نام پارامتر</th><th>نوع</th><th>اجباری</th><th>توضیح</th></tr>
+        <tr><td><code>accountNo</code></td><td>string</td><td>بله</td><td>شماره حساب بانکی مشتری</td></tr>
+        <tr><td><code>date</code></td><td>string (DateTime)</td><td>بله</td><td>تاریخ موردنظر جهت دریافت گردش حساب</td></tr>
+    </table>
+
+    <p><strong>نمونه درخواست:</strong></p>
+
+<pre><code>GET /api/CDP/GetSamanStatements?accountNo=1234567890&amp;date=2023-01-01</code></pre>
+
+    <p><strong>خروجی در صورت موفق بودن درخواست:</strong></p>
+
+<pre><code>{
+    "isSuccess": true,
+    "data": {
+        "transactions": [
+            {
+                "bankAccountStatementId": 1,
+                "accountNumber": "1234567890",
+                "price": 25000000,
+                "transactionTime": "2023-01-01T10:30:00",
+                "transactionDate": "2023-01-01T00:00:00",
+                "identifire": "PAY-123456",
+                "branchCode": "001",
+                "bankSerialNumber": "SER-987654",
+                "description": "واریز وجه",
+                "transactionNumber": "TXN-2023-001",
+                "traceCode": "TRC-123456789",
+                "treasuryQueueId": 100,
+                "lastStateDescription": "تأیید شده",
+                "userDescription": "ثبت توسط کاربر",
+                "bankTransactionTypeId": 1,
+                "createdOn": "2023-01-01T10:30:00",
+                "createdBy": 1,
+                "modifiedOn": null,
+                "modifiedBy
